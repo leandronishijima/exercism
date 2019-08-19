@@ -12,7 +12,7 @@ defmodule RnaTranscription do
     dna
     |> List.to_string()
     |> String.graphemes()
-    |> Enum.map(fn f -> dna_to_rna(to_string(f)) end)
+    |> Enum.map(fn f -> dna_to_rna(f) end)
     |> List.flatten()
   end
 
