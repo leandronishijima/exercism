@@ -16,10 +16,10 @@ defmodule RnaTranscription do
 
   def dna_to_rna(dna) do
     case dna do
-      ?G -> 'C'
-      ?C -> 'G'
-      ?T -> 'A'
-      ?A -> 'U'
+      ?G -> ?C
+      ?C -> ?G
+      ?T -> ?A
+      ?A -> ?U
     end
   end
 end
