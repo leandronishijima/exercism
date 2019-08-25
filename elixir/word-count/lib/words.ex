@@ -8,8 +8,7 @@ defmodule Words do
   def count(sentence) do
     sentence
     |> String.downcase()
-    |> String.replace(~r/[^[:alnum:]-]/u, " ")
-    |> String.split(~r/[\s_]/, trim: true)
+    |> String.split(~r/[^[:alpha:][:digit:]-]/u, trim: true)
     |> Enum.reduce(Map.new(), &count_word/2)
   end
 
