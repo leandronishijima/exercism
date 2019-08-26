@@ -21,9 +21,7 @@ defmodule Strain do
     strain(list, &(not fun.(&1)))
   end
 
-  defp strain(_ = [], _) do
-    []
-  end
+  defp strain(_ = [], _), do: []
 
   defp strain([head | tail], fun) do
     if fun.(head) do
