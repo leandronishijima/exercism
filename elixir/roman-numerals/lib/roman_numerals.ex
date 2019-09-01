@@ -27,13 +27,11 @@ defmodule RomanNumerals do
 
   defp to_roman(_, 0, result), do: result
 
-  defp to_roman([head | tail] = keys, number, result) do
-    cond do
-      number >= head ->
-        to_roman(keys, number - head, result <> @roman[head])
+  defp to_roman([head | _] = keys, number, result) when head <= number do
+    to_roman(keys, number - head, result <> @roman[head])
+  end
 
-      true ->
-        to_roman(tail, number, result)
-    end
+  defp to_roman([_ | tail], number, result) do
+    to_roman(tail, number, result)
   end
 end
