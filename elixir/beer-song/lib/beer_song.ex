@@ -35,8 +35,5 @@ defmodule BeerSong do
   Get the entire beer song for a given range of numbers of bottles.
   """
   @spec lyrics(Range.t()) :: String.t()
-  def lyrics(range \\ 99..0) do
-    range
-    |> Enum.map_join("\n", &verse/1)
-  end
+  def lyrics(range \\ 99..0), do: Enum.map_join(range, "\n", &verse/1)
 end
