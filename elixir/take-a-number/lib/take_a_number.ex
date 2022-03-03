@@ -3,7 +3,7 @@ defmodule TakeANumber do
     spawn(fn -> machine_state(0) end)
   end
 
-  def machine_state(state) do
+  defp machine_state(state) do
     state =
       receive do
         {:report_state, sender_pid} ->
