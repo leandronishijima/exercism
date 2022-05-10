@@ -33,14 +33,31 @@ defmodule TakeANumberDeluxe do
     state
   end
 
+  @spec queue_new_number(pid()) :: {:ok, integer()} | {:error, atom()}
+  def queue_new_number(machine) do
+    case GenServer.call(machine, :queue_new_number) do
+      number when is_number(number) ->
+        {:ok, number}
+
+      :error ->
+        {:error, :all_possible_numbers_are_in_use}
+    end
+  end
+
   @impl GenServer
   def handle_call(:report_state, _from, state) do
     {:reply, state, state}
   end
 
-  @spec queue_new_number(pid()) :: {:ok, integer()} | {:error, atom()}
-  def queue_new_number(machine) do
-    # Please implement the queue_new_number/1 function
+  @impl GenServer
+  def handle_call(:queue_new_number, _from, {:ok, take_a_number} = state) do
+    case TakeANumberDeluxe.State.queue_new_number(take_a_number) do
+      {:ok, reply, new_state} ->
+        {:reply, reply, {:ok, new_state}}
+
+      {:error, _} ->
+        {:reply, :error, state}
+    end
   end
 
   @spec serve_next_queued_number(pid(), integer() | nil) :: {:ok, integer()} | {:error, atom()}
