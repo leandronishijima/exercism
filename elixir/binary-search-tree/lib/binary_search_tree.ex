@@ -27,20 +27,8 @@ defmodule BinarySearchTree do
   Traverses the Binary Search Tree in order and returns a list of each node's data.
   """
   @spec in_order(bst_node) :: [any]
-  def in_order(tree) do
-    in_order_reduce(tree, [])
-  end
+  def in_order(nil), do: []
 
-  defp in_order_reduce(%{data: data, left: nil, right: nil}, _acc),
-    do: [data]
-
-  defp in_order_reduce(%{data: data, left: left, right: nil}, acc) when not is_nil(left),
-    do: acc ++ in_order_reduce(left, acc) ++ [data]
-
-  defp in_order_reduce(%{data: data, left: nil, right: right}, acc) when not is_nil(right),
-    do: acc ++ [data] ++ in_order_reduce(right, acc)
-
-  defp in_order_reduce(%{data: data, left: left, right: right}, acc)
-       when not is_nil(right) and not is_nil(left),
-       do: acc ++ in_order_reduce(left, acc) ++ [data] ++ in_order_reduce(right, acc)
+  def in_order(tree),
+    do: in_order(tree.left) ++ [tree.data] ++ in_order(tree.right)
 end
