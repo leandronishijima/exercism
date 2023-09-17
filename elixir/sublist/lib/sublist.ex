@@ -9,13 +9,13 @@ defmodule Sublist do
 
   def compare(a, b) do
     cond do
-      is_sublist?(a, b) -> :sublist
-      is_sublist?(b, a) -> :superlist
+      sublist?(a, b) -> :sublist
+      sublist?(b, a) -> :superlist
       true -> :unequal
     end
   end
 
-  defp is_sublist?(a, b) do
+  defp sublist?(a, b) do
     b
     |> Enum.chunk_every(length(a), 1, :discard)
     |> Enum.any?(&(&1 === a))
