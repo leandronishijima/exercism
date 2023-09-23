@@ -16,6 +16,6 @@ defmodule FlattenArray do
   def flatten(list) do
     list
     |> List.flatten()
-    |> Enum.reject(&is_nil(&1))
+    |> Enum.reject(&is_nil/1)
   end
 end
