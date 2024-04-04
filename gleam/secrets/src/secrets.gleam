@@ -19,7 +19,8 @@ pub fn secret_combine(
   secret_function2: fn(Int) -> Int,
 ) -> fn(Int) -> Int {
   fn(x) {
-    secret_function1(x)
+    x
+    |> secret_function1()
     |> secret_function2()
   }
 }
