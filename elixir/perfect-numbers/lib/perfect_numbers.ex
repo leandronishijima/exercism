@@ -11,14 +11,15 @@ defmodule PerfectNumbers do
   """
   @spec classify(number :: integer) :: {:ok, atom} | {:error, String.t()}
   def classify(1), do: {:ok, :deficient}
-  def classify(0), do: {:error, "Classification is only possible for natural numbers."}
 
-  def classify(number) when number < 0,
+  def classify(number) when number <= 0,
     do: {:error, "Classification is only possible for natural numbers."}
 
-  def classify(number) do
-    classify(aliquot_sum(number), number)
-  end
+  def classify(number),
+    do:
+      number
+      |> aliquot_sum()
+      |> classify(number)
 
   defp classify(aliquot_sum, number) when aliquot_sum == number, do: {:ok, :perfect}
   defp classify(aliquot_sum, number) when aliquot_sum > number, do: {:ok, :abundant}
