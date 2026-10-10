@@ -10,14 +10,9 @@ defmodule ETL do
   @spec transform(map) :: map
   def transform(input) do
     input
-    |> Map.keys()
-    |> Enum.reduce(%{}, fn key, acc ->
-      points_map =
-        Enum.reduce(input[key], %{}, fn letter, inner_acc ->
-          Map.put(inner_acc, String.downcase(letter), key)
-        end)
-
-      Map.merge(acc, points_map)
+    |> Enum.flat_map(fn {points, letters} ->
+      Enum.map(letters, &{String.downcase(&1), points})
     end)
+    |> Map.new()
   end
 end
